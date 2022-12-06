@@ -52,8 +52,38 @@ def random_predict_opti(number: int = 1) -> int:
     #print("угадали {} кол-во {}".format( list_value[(predict_index-1) if len(list_value) > 1 else 0], count))
     return count
 
+def predict_1_2(number: int = 1) -> int:
+    """Рандомно угадываем число по оптимизированному алгоритму  1/2.
 
-def score_game(random_predict_opti) -> int:
+    Args:
+        number (int, optional): Загаданное число. Defaults to 1.
+
+    Returns:
+        int: Число попыток
+    """
+    min_value = 1 # стартовая минимальная границ
+    max_value = 101 # стартовая максимальная граница    
+    count = 0    
+    #print("задумали {}".format(number), end='\t')
+    
+    while True:
+        count += 1
+        cur_value = min_value + int((max_value - min_value)/ 2)  # предполагаемый индекс для списка отсечения
+        #print("[{}]={}".format(count, cur_value), end=' ')
+     
+        if number == cur_value :
+            break  # выход из цикла если угадали
+        elif number < cur_value :
+            max_value = cur_value # если число меньше, уменьшаем верхнюю границу
+        else :
+            min_value = cur_value  # если число больше, увеличиваем нижнюю границу                        
+        #print("{}<->{}".format(min_value, max_value), end='; ')
+    
+    #print("угадали {} кол-во {}".format( cur_value, count))
+    return count
+
+
+def score_game(predict_1_2) -> int:
     """За какое количство попыток в среднем за 1000 подходов угадывает наш алгоритм
 
     Args:
@@ -64,10 +94,10 @@ def score_game(random_predict_opti) -> int:
     """
     count_ls = []
     #np.random.seed(1)  # фиксируем сид для воспроизводимости
-    random_array = np.random.randint(1, 101, size=(1000))  # загадали список чисел
+    random_array = np.random.randint( 1, 101, size=(1000))  # загадали список чисел
 
     for number in random_array:
-        count_ls.append(random_predict_opti(number))
+        count_ls.append(predict_1_2(number))
 
     score = int(np.mean(count_ls))
     print(f"Ваш алгоритм угадывает число в среднем за:{score} попыток")
@@ -76,4 +106,4 @@ def score_game(random_predict_opti) -> int:
 
 if __name__ == "__main__":
     # RUN
-    score_game(random_predict_opti)
+    score_game(predict_1_2)

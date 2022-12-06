@@ -53,7 +53,7 @@ def random_predict_opti(number: int = 1) -> int:
     return count
 
 def predict_1_2(number: int = 1) -> int:
-    """Рандомно угадываем число по оптимизированному алгоритму  1/2.
+    """угадываем число по оптимизированному алгоритму делением диапазона на 2.
 
     Args:
         number (int, optional): Загаданное число. Defaults to 1.

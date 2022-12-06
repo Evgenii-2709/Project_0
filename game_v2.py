@@ -83,11 +83,11 @@ def predict_1_2(number: int = 1) -> int:
     return count
 
 
-def score_game(func_calc) -> int:
+def score_game(rand_predict) -> int:
     """За какое количство попыток в среднем за 1000 подходов угадывает наш алгоритм
 
     Args:
-        random_predict ([type]): функция угадывания
+        rand_predict ([type]): функция угадывания
 
     Returns:
         int: среднее количество попыток
@@ -97,7 +97,7 @@ def score_game(func_calc) -> int:
     random_array = np.random.randint( 1, 101, size=(1000))  # загадали список чисел
 
     for number in random_array:
-        count_ls.append(func_calc(number))
+        count_ls.append(rand_predict(number))
 
     score = int(np.mean(count_ls))
     print(f"Ваш алгоритм угадывает число в среднем за:{score} попыток")
